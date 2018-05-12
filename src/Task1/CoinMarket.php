@@ -13,8 +13,10 @@ class CoinMarket
 
     public function maxPrice(): float
     {
-        return 2;
-        // @todo
+        usort($this->currencies, function($a, $b) {
+            return $a->getDailyPrice() <=> $b->getDailyPrice();
+        });
+        return array_pop($this->currencies)->getDailyPrice();
     }
 
     public function getCurrencies(): array
